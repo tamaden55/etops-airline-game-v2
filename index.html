@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETOPS Flight Planner</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">ETOPS Flight Planner</h1>
+                <div class="header-subtitle">Extended-range Twin-engine Operation Performance Standards</div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Control Panel -->
+            <aside class="control-panel">
+                <!-- Aircraft Selection -->
+                <section class="panel-section">
+                    <h2 class="section-title">Aircraft Selection</h2>
+                    <div class="aircraft-selector">
+                        <select id="aircraft-select" class="select-input">
+                            <option value="">Select Aircraft</option>
+                            <optgroup label="Wide-body Long Range">
+                                <option value="B777-200ER">Boeing 777-200ER</option>
+                                <option value="B777-300ER">Boeing 777-300ER</option>
+                                <option value="A350-900">Airbus A350-900</option>
+                                <option value="A350-1000">Airbus A350-1000</option>
+                                <option value="B787-8">Boeing 787-8</option>
+                                <option value="B787-9">Boeing 787-9</option>
+                                <option value="B787-10">Boeing 787-10</option>
+                            </optgroup>
+                            <optgroup label="Medium Range">
+                                <option value="B737-800">Boeing 737-800</option>
+                                <option value="B737-MAX8">Boeing 737 MAX 8</option>
+                                <option value="A320-200">Airbus A320-200</option>
+                                <option value="A320neo">Airbus A320neo</option>
+                                <option value="A321XLR">Airbus A321XLR</option>
+                            </optgroup>
+                            <optgroup label="Regional">
+                                <option value="E175">Embraer E175</option>
+                                <option value="E190">Embraer E190</option>
+                                <option value="A220-300">Airbus A220-300</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="aircraft-info" id="aircraft-info">
+                        <div class="info-item">
+                            <span class="info-label">ETOPS Rating:</span>
+                            <span class="info-value" id="etops-rating">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Range:</span>
+                            <span class="info-value" id="aircraft-range">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Cruise Speed:</span>
+                            <span class="info-value" id="cruise-speed">-</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Route Planning -->
+                <section class="panel-section">
+                    <h2 class="section-title">Route Planning</h2>
+                    <div class="route-inputs">
+                        <div class="input-group">
+                            <label for="departure-airport" class="input-label">Departure</label>
+                            <input type="text" id="departure-airport" class="text-input" placeholder="NRT, Tokyo Narita" />
+                        </div>
+                        <div class="input-group">
+                            <label for="arrival-airport" class="input-label">Arrival</label>
+                            <input type="text" id="arrival-airport" class="text-input" placeholder="LAX, Los Angeles" />
+                        </div>
+                    </div>
+                    <button class="calculate-btn" id="calculate-route">Calculate Route</button>
+                </section>
+
+                <!-- Route Information -->
+                <section class="panel-section">
+                    <h2 class="section-title">Route Information</h2>
+                    <div class="route-info" id="route-info">
+                        <div class="info-item">
+                            <span class="info-label">Distance:</span>
+                            <span class="info-value" id="route-distance">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Flight Time:</span>
+                            <span class="info-value" id="flight-time">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Fuel Consumption:</span>
+                            <span class="info-value" id="fuel-consumption">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">ETOPS Compliance:</span>
+                            <span class="info-value" id="etops-compliance">-</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alternate Airports -->
+                <section class="panel-section">
+                    <h2 class="section-title">Alternate Airports</h2>
+                    <div class="alternates-list" id="alternates-list">
+                        <div class="no-data">No route calculated</div>
+                    </div>
+                </section>
+            </aside>
+
+            <!-- Map Container -->
+            <section class="map-container">
+                <div id="map" class="map"></div>
+                <div class="map-overlay">
+                    <div class="map-controls">
+                        <button class="map-btn" id="toggle-etops">Show ETOPS Areas</button>
+                        <button class="map-btn" id="toggle-alternates">Show Alternates</button>
+                    </div>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <div class="legend-color route-color"></div>
+                            <span>Flight Route</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color etops-color"></div>
+                            <span>ETOPS Area</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color alternate-color"></div>
+                            <span>Alternate Airport</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div class="status-info">
+                <span id="status-message">Ready</span>
+            </div>
+            <div class="status-coords">
+                <span id="mouse-coords">-</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="etops-calculator.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
