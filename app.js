@@ -37,6 +37,9 @@ class ETOPSApp {
             this.calculator.setAircraftData(aircraftData);
             this.calculator.setAirportData(airportsData);
             
+            // Populate airport dropdowns
+            this.populateAirportDropdowns(airportsData);
+            
             console.log('Data loaded successfully');
         } catch (error) {
             console.error('Error loading data:', error);
@@ -79,6 +82,64 @@ class ETOPSApp {
         });
     }
 
+    populateAirportDropdowns(airportsData) {
+        const departureSelect = document.getElementById('departure-airport');
+        const arrivalSelect = document.getElementById('arrival-airport');
+        
+        // Group airports by category for better organization
+        const majorAirports = [];
+        const alternateAirports = [];
+        
+        Object.entries(airportsData).forEach(([code, airport]) => {
+            const option = {
+                code: code,
+                display: `${code} - ${airport.name}`,
+                category: airport.category || 'major'
+            };
+            
+            if (airport.category === 'major') {
+                majorAirports.push(option);
+            } else {
+                alternateAirports.push(option);
+            }
+        });
+        
+        // Sort alphabetically by code
+        majorAirports.sort((a, b) => a.code.localeCompare(b.code));
+        alternateAirports.sort((a, b) => a.code.localeCompare(b.code));
+        
+        // Add options to both dropdowns
+        [departureSelect, arrivalSelect].forEach(select => {
+            // Add major airports group
+            if (majorAirports.length > 0) {
+                const majorGroup = document.createElement('optgroup');
+                majorGroup.label = 'Major Airports';
+                majorAirports.forEach(airport => {
+                    const option = document.createElement('option');
+                    option.value = airport.code;
+                    option.textContent = airport.display;
+                    majorGroup.appendChild(option);
+                });
+                select.appendChild(majorGroup);
+            }
+            
+            // Add alternate airports group
+            if (alternateAirports.length > 0) {
+                const alternateGroup = document.createElement('optgroup');
+                alternateGroup.label = 'Alternate Airports';
+                alternateAirports.forEach(airport => {
+                    const option = document.createElement('option');
+                    option.value = airport.code;
+                    option.textContent = airport.display;
+                    alternateGroup.appendChild(option);
+                });
+                select.appendChild(alternateGroup);
+            }
+        });
+        
+        console.log(`Populated airport dropdowns: ${majorAirports.length} major, ${alternateAirports.length} alternate`);
+    }
+
     bindEvents() {
         // Aircraft selection
         document.getElementById('aircraft-select').addEventListener('change', (e) => {
@@ -97,15 +158,6 @@ class ETOPSApp {
 
         document.getElementById('toggle-alternates').addEventListener('click', () => {
             this.toggleAlternates();
-        });
-
-        // Enter key support for input fields
-        document.getElementById('departure-airport').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.calculateRoute();
-        });
-
-        document.getElementById('arrival-airport').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.calculateRoute();
         });
     }
 
@@ -146,17 +198,13 @@ class ETOPSApp {
             return;
         }
 
-        const depCode = document.getElementById('departure-airport').value.trim().toUpperCase();
-        const arrCode = document.getElementById('arrival-airport').value.trim().toUpperCase();
+        const depAirportCode = document.getElementById('departure-airport').value;
+        const arrAirportCode = document.getElementById('arrival-airport').value;
 
-        if (!depCode || !arrCode) {
-            this.updateStatus('Please enter departure and arrival airports');
+        if (!depAirportCode || !arrAirportCode) {
+            this.updateStatus('Please select departure and arrival airports');
             return;
         }
-
-        // Extract airport codes (first 3 characters if longer)
-        const depAirportCode = depCode.length > 3 ? depCode.substring(0, 3) : depCode;
-        const arrAirportCode = arrCode.length > 3 ? arrCode.substring(0, 3) : arrCode;
 
         const depAirport = this.calculator.airports[depAirportCode];
         const arrAirport = this.calculator.airports[arrAirportCode];

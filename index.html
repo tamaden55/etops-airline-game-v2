@@ -84,11 +84,15 @@
                     <div class="route-inputs">
                         <div class="input-group">
                             <label for="departure-airport" class="input-label">Departure</label>
-                            <input type="text" id="departure-airport" class="text-input" placeholder="NRT, Tokyo Narita" />
+                            <select id="departure-airport" class="select-input">
+                                <option value="">Select Departure Airport</option>
+                            </select>
                         </div>
                         <div class="input-group">
                             <label for="arrival-airport" class="input-label">Arrival</label>
-                            <input type="text" id="arrival-airport" class="text-input" placeholder="LAX, Los Angeles" />
+                            <select id="arrival-airport" class="select-input">
+                                <option value="">Select Arrival Airport</option>
+                            </select>
                         </div>
                     </div>
                     <button class="calculate-btn" id="calculate-route">Calculate Route</button>
