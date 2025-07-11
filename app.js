@@ -17,9 +17,9 @@ class ETOPSApp {
     }
 
     async init() {
-        await this.initializeData();
         this.initializeMap();
         this.bindEvents();
+        await this.initializeData();
         this.updateStatus('Application initialized');
     }
 
@@ -86,6 +86,11 @@ class ETOPSApp {
         const departureSelect = document.getElementById('departure-airport');
         const arrivalSelect = document.getElementById('arrival-airport');
         
+        if (!departureSelect || !arrivalSelect) {
+            console.error('Airport select elements not found!');
+            return;
+        }
+        
         // Group airports by category for better organization
         const majorAirports = [];
         const alternateAirports = [];
@@ -109,7 +114,12 @@ class ETOPSApp {
         alternateAirports.sort((a, b) => a.code.localeCompare(b.code));
         
         // Add options to both dropdowns
-        [departureSelect, arrivalSelect].forEach(select => {
+        [departureSelect, arrivalSelect].forEach((select) => {
+            // Clear existing options except the first placeholder
+            while (select.children.length > 1) {
+                select.removeChild(select.lastChild);
+            }
+            
             // Add major airports group
             if (majorAirports.length > 0) {
                 const majorGroup = document.createElement('optgroup');
@@ -136,8 +146,6 @@ class ETOPSApp {
                 select.appendChild(alternateGroup);
             }
         });
-        
-        console.log(`Populated airport dropdowns: ${majorAirports.length} major, ${alternateAirports.length} alternate`);
     }
 
     bindEvents() {
@@ -354,6 +362,11 @@ class ETOPSApp {
         if (isActive) {
             this.etopsLayer.clearLayers();
             button.classList.remove('active');
+            button.classList.remove('etops-warning-active');
+            // Reset button style
+            button.style.backgroundColor = '';
+            button.style.borderColor = '';
+            button.textContent = 'Show ETOPS Areas';
         } else {
             this.showETOPSAreas();
             button.classList.add('active');
@@ -369,16 +382,106 @@ class ETOPSApp {
         const etopsDistanceNM = (aircraft.etops / 60) * aircraft.cruiseSpeed;
         const etopsDistanceKM = etopsDistanceNM * 1.852; // Convert to km for Leaflet
 
+        // Check ETOPS compliance for visual styling
+        const etopsCheck = this.calculator.checkETOPSCompliance(this.selectedAircraft, this.currentRoute);
+        const isCompliant = etopsCheck.compliant;
+
+        console.log('=== ETOPS AREAS DEBUG ===');
+        console.log('Aircraft:', this.selectedAircraft, aircraft);
+        console.log('ETOPS Rating:', aircraft.etops, 'minutes');
+        console.log('Cruise Speed:', aircraft.cruiseSpeed, 'kts');
+        console.log('ETOPS Distance:', etopsDistanceNM.toFixed(0), 'nm');
+        console.log('Compliance Check:', isCompliant);
+        console.log('Violations:', etopsCheck.violations.length);
+        console.log('Route waypoints:', this.currentRoute.waypoints.length);
+        
+        // 詳細な違反調査
+        etopsCheck.violations.forEach((violation, i) => {
+            console.log(`Violation ${i+1}:`, 
+                'WP:', violation.waypoint, 
+                'Issue:', violation.issue,
+                'Available alternates:', violation.alternates ? violation.alternates.length : 'N/A'
+            );
+        });
+        
+        // 代替空港検索の詳細デバッグ
+        console.log('Alternate airports check:');
+        this.currentRoute.waypoints.forEach((wp, i) => {
+            const alternates = this.calculator.findAlternateAirports(wp, etopsDistanceNM);
+            console.log(`WP${i} (${wp.lat.toFixed(2)}, ${wp.lng.toFixed(2)}): ${alternates.length} alternates`);
+            if (alternates.length === 0) {
+                console.log(`  -> VIOLATION: No alternates within ${etopsDistanceNM}nm`);
+            } else {
+                alternates.slice(0, 3).forEach(alt => {
+                    console.log(`  -> ${alt.code}: ${alt.distance.toFixed(0)}nm`);
+                });
+            }
+        });
+
+        // Choose colors based on compliance
+        const circleColor = isCompliant ? '#f59e0b' : '#ef4444'; // Orange for compliant, Red for non-compliant
+        const fillOpacity = isCompliant ? 0.1 : 0.2; // More prominent fill for warnings
+        const opacity = isCompliant ? 0.6 : 0.8; // More prominent border for warnings
+
         // Show ETOPS circles along the route
-        this.currentRoute.waypoints.forEach(waypoint => {
+        this.currentRoute.waypoints.forEach((waypoint, index) => {
             const circle = L.circle([waypoint.lat, waypoint.lng], {
                 radius: etopsDistanceKM * 1000, // Convert to meters
-                color: '#f59e0b',
-                weight: 1,
-                opacity: 0.6,
-                fillOpacity: 0.1
+                color: circleColor,
+                weight: isCompliant ? 1 : 2, // Thicker border for warnings
+                opacity: opacity,
+                fillOpacity: fillOpacity,
+                className: isCompliant ? 'etops-compliant' : 'etops-warning'
             }).addTo(this.etopsLayer);
+
+            // Add warning markers for non-compliant areas
+            if (!isCompliant) {
+                const warningIcon = L.divIcon({
+                    className: 'etops-warning-icon',
+                    html: `<div style="
+                        background-color: #ef4444; 
+                        color: white; 
+                        width: 24px; 
+                        height: 24px; 
+                        border-radius: 50%; 
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        font-weight: bold; 
+                        font-size: 16px;
+                        border: 2px solid white;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                    ">⚠</div>`,
+                    iconSize: [28, 28],
+                    iconAnchor: [14, 14]
+                });
+
+                const warningMarker = L.marker([waypoint.lat, waypoint.lng], {
+                    icon: warningIcon
+                }).addTo(this.etopsLayer);
+
+                warningMarker.bindPopup(`
+                    <div style="text-align: center;">
+                        <strong style="color: #ef4444;">⚠ ETOPS WARNING ⚠</strong><br>
+                        <span style="font-size: 12px;">No suitable alternate airport<br>within ${aircraft.etops} minutes</span>
+                    </div>
+                `);
+            }
         });
+
+        // Add compliance status to button
+        const button = document.getElementById('toggle-etops');
+        if (!isCompliant) {
+            button.style.backgroundColor = '#ef4444';
+            button.style.borderColor = '#ef4444';
+            button.textContent = '⚠ ETOPS Warning Areas';
+            button.classList.add('etops-warning-active');
+        } else {
+            button.style.backgroundColor = '#f59e0b';
+            button.style.borderColor = '#f59e0b';
+            button.textContent = 'Show ETOPS Areas';
+            button.classList.remove('etops-warning-active');
+        }
     }
 
     toggleAlternates() {

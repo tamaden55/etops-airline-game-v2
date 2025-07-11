@@ -403,6 +403,42 @@ body {
     background: var(--border-hover);
 }
 
+/* ETOPS Warning Animations */
+@keyframes etops-warning-pulse {
+    0%, 100% { 
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes etops-warning-border {
+    0%, 100% { 
+        border-color: #ef4444;
+    }
+    50% { 
+        border-color: #fbbf24;
+    }
+}
+
+.etops-warning-icon {
+    animation: etops-warning-pulse 2s infinite ease-in-out;
+}
+
+.etops-warning {
+    animation: etops-warning-border 1.5s infinite ease-in-out;
+}
+
+/* ETOPS Button Warning State */
+.map-btn.etops-warning-active {
+    background-color: var(--accent-red) !important;
+    border-color: var(--accent-red) !important;
+    animation: etops-warning-pulse 2s infinite ease-in-out;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .main-content {
