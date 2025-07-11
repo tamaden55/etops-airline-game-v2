@@ -8,7 +8,7 @@
     "cruiseSpeed": 447,
     "fuelConsumptionPerHour": 850,
     "maxPassengers": 189,
-    "description": "中距離路線に適した双発機"
+    "suitable_for_etops": true
   },
   "B737-MAX8": {
     "name": "Boeing 737 MAX 8",
@@ -17,9 +17,9 @@
     "etops": 180,
     "range": 3550,
     "cruiseSpeed": 453,
-    "fuelConsumptionPerHour": 800,
-    "maxPassengers": 210,
-    "description": "最新の燃費効率を持つ737シリーズ"
+    "fuelConsumptionPerHour": 820,
+    "maxPassengers": 189,
+    "suitable_for_etops": true
   },
   "A320-200": {
     "name": "Airbus A320-200",
@@ -30,7 +30,7 @@
     "cruiseSpeed": 447,
     "fuelConsumptionPerHour": 840,
     "maxPassengers": 180,
-    "description": "欧州製の人気中距離機"
+    "suitable_for_etops": true
   },
   "A320neo": {
     "name": "Airbus A320neo",
@@ -40,206 +40,8 @@
     "range": 3500,
     "cruiseSpeed": 447,
     "fuelConsumptionPerHour": 780,
-    "maxPassengers": 195,
-    "description": "新エンジンオプションでより効率的"
-  },
-  "B767-300ER": {
-    "name": "Boeing 767-300ER",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 5980,
-    "cruiseSpeed": 459,
-    "fuelConsumptionPerHour": 1400,
-    "maxPassengers": 269,
-    "description": "長距離路線対応のワイドボディ機"
-  },
-  "B777-200": {
-    "name": "Boeing 777-200",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 5240,
-    "cruiseSpeed": 490,
-    "fuelConsumptionPerHour": 2100,
-    "maxPassengers": 314,
-    "description": "大型長距離双発機"
-  },
-  "B777-200ER": {
-    "name": "Boeing 777-200ER",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 207,
-    "range": 7065,
-    "cruiseSpeed": 490,
-    "fuelConsumptionPerHour": 2200,
-    "maxPassengers": 314,
-    "description": "超長距離対応の777"
-  },
-  "B777-300ER": {
-    "name": "Boeing 777-300ER",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 207,
-    "range": 7370,
-    "cruiseSpeed": 490,
-    "fuelConsumptionPerHour": 2400,
-    "maxPassengers": 396,
-    "description": "最大級の双発長距離機"
-  },
-  "A330-200": {
-    "name": "Airbus A330-200",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 7250,
-    "cruiseSpeed": 470,
-    "fuelConsumptionPerHour": 1900,
-    "maxPassengers": 293,
-    "description": "エアバスの長距離双発機"
-  },
-  "A330-300": {
-    "name": "Airbus A330-300",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 5850,
-    "cruiseSpeed": 470,
-    "fuelConsumptionPerHour": 2000,
-    "maxPassengers": 335,
-    "description": "大容量の双発機"
-  },
-  "A350-900": {
-    "name": "Airbus A350-900",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 370,
-    "range": 8100,
-    "cruiseSpeed": 488,
-    "fuelConsumptionPerHour": 1800,
-    "maxPassengers": 325,
-    "description": "最新技術の超長距離機"
-  },
-  "A350-1000": {
-    "name": "Airbus A350-1000",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 370,
-    "range": 8700,
-    "cruiseSpeed": 488,
-    "fuelConsumptionPerHour": 1900,
-    "maxPassengers": 366,
-    "description": "A350シリーズの最大型"
-  },
-  "B787-8": {
-    "name": "Boeing 787-8 Dreamliner",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 330,
-    "range": 7355,
-    "cruiseSpeed": 488,
-    "fuelConsumptionPerHour": 1600,
-    "maxPassengers": 248,
-    "description": "革新的な複合材料製双発機"
-  },
-  "B787-9": {
-    "name": "Boeing 787-9 Dreamliner",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 330,
-    "range": 7635,
-    "cruiseSpeed": 488,
-    "fuelConsumptionPerHour": 1700,
-    "maxPassengers": 296,
-    "description": "787の主力モデル"
-  },
-  "B787-10": {
-    "name": "Boeing 787-10 Dreamliner",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 330,
-    "range": 6430,
-    "cruiseSpeed": 488,
-    "fuelConsumptionPerHour": 1800,
-    "maxPassengers": 336,
-    "description": "787シリーズの最大型"
-  },
-  "B737-700": {
-    "name": "Boeing 737-700",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 3010,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 780,
-    "maxPassengers": 149,
-    "description": "737シリーズの中型機"
-  },
-  "B737-900": {
-    "name": "Boeing 737-900",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 2800,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 900,
-    "maxPassengers": 220,
-    "description": "737シリーズの延長型"
-  },
-  "B737-MAX7": {
-    "name": "Boeing 737 MAX 7",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 3850,
-    "cruiseSpeed": 453,
-    "fuelConsumptionPerHour": 750,
-    "maxPassengers": 172,
-    "description": "MAX7は長距離対応の小型機"
-  },
-  "B737-MAX9": {
-    "name": "Boeing 737 MAX 9",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 3515,
-    "cruiseSpeed": 453,
-    "fuelConsumptionPerHour": 850,
-    "maxPassengers": 220,
-    "description": "MAX9は中型の延長型"
-  },
-  "A319-100": {
-    "name": "Airbus A319-100",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 3750,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 750,
-    "maxPassengers": 156,
-    "description": "A320ファミリーの短胴型"
-  },
-  "A321-200": {
-    "name": "Airbus A321-200",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 3200,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 900,
-    "maxPassengers": 220,
-    "description": "A320ファミリーの長胴型"
-  },
-  "A321neo": {
-    "name": "Airbus A321neo",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 4000,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 850,
-    "maxPassengers": 244,
-    "description": "A321の新エンジン型"
+    "maxPassengers": 180,
+    "suitable_for_etops": true
   },
   "A321XLR": {
     "name": "Airbus A321XLR",
@@ -248,31 +50,119 @@
     "etops": 180,
     "range": 4700,
     "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 900,
-    "maxPassengers": 244,
-    "description": "A321の超長距離型"
+    "fuelConsumptionPerHour": 950,
+    "maxPassengers": 220,
+    "suitable_for_etops": true
   },
-  "A220-100": {
-    "name": "Airbus A220-100",
+  "B767-300ER": {
+    "name": "Boeing 767-300ER",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 180,
+    "range": 5980,
+    "cruiseSpeed": 459,
+    "fuelConsumptionPerHour": 1800,
+    "maxPassengers": 290,
+    "suitable_for_etops": true
+  },
+  "B777-200ER": {
+    "name": "Boeing 777-200ER",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 207,
+    "range": 7700,
+    "cruiseSpeed": 490,
+    "fuelConsumptionPerHour": 2800,
+    "maxPassengers": 440,
+    "suitable_for_etops": true
+  },
+  "B777-300ER": {
+    "name": "Boeing 777-300ER",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 207,
+    "range": 7930,
+    "cruiseSpeed": 490,
+    "fuelConsumptionPerHour": 3100,
+    "maxPassengers": 550,
+    "suitable_for_etops": true
+  },
+  "A330-200": {
+    "name": "Airbus A330-200",
     "manufacturer": "Airbus",
     "type": "twin-engine",
     "etops": 180,
-    "range": 3450,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 650,
-    "maxPassengers": 135,
-    "description": "旧ボンバルディア CS100の小型機"
+    "range": 7250,
+    "cruiseSpeed": 470,
+    "fuelConsumptionPerHour": 2400,
+    "maxPassengers": 406,
+    "suitable_for_etops": true
   },
-  "A220-300": {
-    "name": "Airbus A220-300",
+  "A330-300": {
+    "name": "Airbus A330-300",
     "manufacturer": "Airbus",
     "type": "twin-engine",
     "etops": 180,
-    "range": 3350,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 700,
-    "maxPassengers": 160,
-    "description": "旧ボンバルディア CS300の中型機"
+    "range": 6350,
+    "cruiseSpeed": 470,
+    "fuelConsumptionPerHour": 2500,
+    "maxPassengers": 440,
+    "suitable_for_etops": true
+  },
+  "B787-8": {
+    "name": "Boeing 787-8 Dreamliner",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 330,
+    "range": 7355,
+    "cruiseSpeed": 490,
+    "fuelConsumptionPerHour": 2100,
+    "maxPassengers": 381,
+    "suitable_for_etops": true
+  },
+  "B787-9": {
+    "name": "Boeing 787-9 Dreamliner",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 330,
+    "range": 7635,
+    "cruiseSpeed": 490,
+    "fuelConsumptionPerHour": 2200,
+    "maxPassengers": 420,
+    "suitable_for_etops": true
+  },
+  "B787-10": {
+    "name": "Boeing 787-10 Dreamliner",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 330,
+    "range": 6430,
+    "cruiseSpeed": 490,
+    "fuelConsumptionPerHour": 2300,
+    "maxPassengers": 440,
+    "suitable_for_etops": true
+  },
+  "A350-900": {
+    "name": "Airbus A350-900",
+    "manufacturer": "Airbus",
+    "type": "twin-engine",
+    "etops": 370,
+    "range": 8100,
+    "cruiseSpeed": 490,
+    "fuelConsumptionPerHour": 2400,
+    "maxPassengers": 440,
+    "suitable_for_etops": true
+  },
+  "A350-1000": {
+    "name": "Airbus A350-1000",
+    "manufacturer": "Airbus",
+    "type": "twin-engine",
+    "etops": 370,
+    "range": 8700,
+    "cruiseSpeed": 490,
+    "fuelConsumptionPerHour": 2600,
+    "maxPassengers": 480,
+    "suitable_for_etops": true
   },
   "E175": {
     "name": "Embraer E175",
@@ -281,9 +171,9 @@
     "etops": 120,
     "range": 2200,
     "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 500,
+    "fuelConsumptionPerHour": 720,
     "maxPassengers": 88,
-    "description": "リージョナルジェットの主力機"
+    "suitable_for_etops": true
   },
   "E190": {
     "name": "Embraer E190",
@@ -291,10 +181,142 @@
     "type": "twin-engine",
     "etops": 120,
     "range": 2400,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 600,
+    "cruiseSpeed": 459,
+    "fuelConsumptionPerHour": 850,
     "maxPassengers": 114,
-    "description": "E-Jetファミリーの大型機"
+    "suitable_for_etops": true
+  },
+  "A220-300": {
+    "name": "Airbus A220-300",
+    "manufacturer": "Airbus",
+    "type": "twin-engine",
+    "etops": 180,
+    "range": 3350,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 680,
+    "maxPassengers": 160,
+    "suitable_for_etops": true
+  },
+  "CRJ-900": {
+    "name": "Bombardier CRJ-900",
+    "manufacturer": "Bombardier",
+    "type": "twin-engine",
+    "etops": 120,
+    "range": 1553,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 650,
+    "maxPassengers": 90,
+    "suitable_for_etops": true
+  },
+  "ATR-72": {
+    "name": "ATR 72-600",
+    "manufacturer": "ATR",
+    "type": "twin-engine",
+    "etops": 60,
+    "range": 900,
+    "cruiseSpeed": 276,
+    "fuelConsumptionPerHour": 350,
+    "maxPassengers": 78,
+    "suitable_for_etops": false
+  },
+  "Q400": {
+    "name": "Bombardier Q400",
+    "manufacturer": "Bombardier",
+    "type": "twin-engine",
+    "etops": 60,
+    "range": 1362,
+    "cruiseSpeed": 360,
+    "fuelConsumptionPerHour": 450,
+    "maxPassengers": 90,
+    "suitable_for_etops": false
+  },
+  "B737-700": {
+    "name": "Boeing 737-700",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 180,
+    "range": 3365,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 800,
+    "maxPassengers": 149,
+    "suitable_for_etops": true
+  },
+  "B737-900": {
+    "name": "Boeing 737-900",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 180,
+    "range": 2950,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 870,
+    "maxPassengers": 220,
+    "suitable_for_etops": true
+  },
+  "A319": {
+    "name": "Airbus A319-100",
+    "manufacturer": "Airbus",
+    "type": "twin-engine",
+    "etops": 180,
+    "range": 3750,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 780,
+    "maxPassengers": 160,
+    "suitable_for_etops": true
+  },
+  "A321": {
+    "name": "Airbus A321-200",
+    "manufacturer": "Airbus",
+    "type": "twin-engine",
+    "etops": 180,
+    "range": 3200,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 920,
+    "maxPassengers": 220,
+    "suitable_for_etops": true
+  },
+  "ERJ-145": {
+    "name": "Embraer ERJ 145",
+    "manufacturer": "Embraer",
+    "type": "twin-engine",
+    "etops": 120,
+    "range": 1550,
+    "cruiseSpeed": 448,
+    "fuelConsumptionPerHour": 420,
+    "maxPassengers": 50,
+    "suitable_for_etops": true
+  },
+  "CRJ-700": {
+    "name": "Bombardier CRJ-700",
+    "manufacturer": "Bombardier",
+    "type": "twin-engine",
+    "etops": 120,
+    "range": 1500,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 500,
+    "maxPassengers": 78,
+    "suitable_for_etops": true
+  },
+  "CRJ-1000": {
+    "name": "Bombardier CRJ-1000",
+    "manufacturer": "Bombardier",
+    "type": "twin-engine",
+    "etops": 120,
+    "range": 1622,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 700,
+    "maxPassengers": 104,
+    "suitable_for_etops": true
+  },
+  "E170": {
+    "name": "Embraer E170",
+    "manufacturer": "Embraer",
+    "type": "twin-engine",
+    "etops": 120,
+    "range": 2150,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 650,
+    "maxPassengers": 80,
+    "suitable_for_etops": true
   },
   "E195": {
     "name": "Embraer E195",
@@ -302,152 +324,130 @@
     "type": "twin-engine",
     "etops": 120,
     "range": 2300,
+    "cruiseSpeed": 459,
+    "fuelConsumptionPerHour": 900,
+    "maxPassengers": 132,
+    "suitable_for_etops": true
+  },
+  "A220-100": {
+    "name": "Airbus A220-100",
+    "manufacturer": "Airbus",
+    "type": "twin-engine",
+    "etops": 180,
+    "range": 3450,
+    "cruiseSpeed": 447,
+    "fuelConsumptionPerHour": 620,
+    "maxPassengers": 135,
+    "suitable_for_etops": true
+  },
+  "B717": {
+    "name": "Boeing 717-200",
+    "manufacturer": "Boeing",
+    "type": "twin-engine",
+    "etops": 120,
+    "range": 1430,
     "cruiseSpeed": 447,
     "fuelConsumptionPerHour": 650,
-    "maxPassengers": 132,
-    "description": "E-Jetファミリーの最大型"
+    "maxPassengers": 134,
+    "suitable_for_etops": true
   },
-  "E190-E2": {
-    "name": "Embraer E190-E2",
-    "manufacturer": "Embraer",
-    "type": "twin-engine",
-    "etops": 120,
-    "range": 2850,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 550,
-    "maxPassengers": 114,
-    "description": "E-Jetの新世代機"
+  "BAe-146": {
+    "name": "BAe 146-200",
+    "manufacturer": "British Aerospace",
+    "type": "quad-engine",
+    "etops": 0,
+    "range": 1389,
+    "cruiseSpeed": 436,
+    "fuelConsumptionPerHour": 800,
+    "maxPassengers": 112,
+    "suitable_for_etops": false
   },
-  "E195-E2": {
-    "name": "Embraer E195-E2",
-    "manufacturer": "Embraer",
-    "type": "twin-engine",
-    "etops": 120,
-    "range": 2600,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 600,
-    "maxPassengers": 146,
-    "description": "E2シリーズの最大型"
-  },
-  "CRJ700": {
-    "name": "Bombardier CRJ700",
-    "manufacturer": "Bombardier",
-    "type": "twin-engine",
-    "etops": 120,
-    "range": 1560,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 450,
-    "maxPassengers": 78,
-    "description": "CRJファミリーの中型機"
-  },
-  "CRJ900": {
-    "name": "Bombardier CRJ900",
-    "manufacturer": "Bombardier",
-    "type": "twin-engine",
-    "etops": 120,
-    "range": 1550,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 480,
-    "maxPassengers": 90,
-    "description": "CRJファミリーの大型機"
-  },
-  "CRJ1000": {
-    "name": "Bombardier CRJ1000",
-    "manufacturer": "Bombardier",
-    "type": "twin-engine",
-    "etops": 120,
-    "range": 1622,
-    "cruiseSpeed": 447,
-    "fuelConsumptionPerHour": 520,
-    "maxPassengers": 104,
-    "description": "CRJファミリーの最大型"
-  },
-  "ATR72": {
-    "name": "ATR 72",
+  "ATR-42": {
+    "name": "ATR 42-600",
     "manufacturer": "ATR",
-    "type": "twin-turboprop",
+    "type": "twin-engine",
     "etops": 60,
-    "range": 825,
-    "cruiseSpeed": 276,
+    "range": 800,
+    "cruiseSpeed": 270,
     "fuelConsumptionPerHour": 280,
-    "maxPassengers": 78,
-    "description": "リージョナル路線向けターボプロップ"
+    "maxPassengers": 50,
+    "suitable_for_etops": false
   },
-  "DHC8-Q400": {
-    "name": "Bombardier Dash 8 Q400",
-    "manufacturer": "Bombardier",
-    "type": "twin-turboprop",
+  "SAAB-340": {
+    "name": "Saab 340",
+    "manufacturer": "Saab",
+    "type": "twin-engine",
     "etops": 60,
-    "range": 1200,
-    "cruiseSpeed": 360,
+    "range": 835,
+    "cruiseSpeed": 285,
+    "fuelConsumptionPerHour": 250,
+    "maxPassengers": 37,
+    "suitable_for_etops": false
+  },
+  "SAAB-2000": {
+    "name": "Saab 2000",
+    "manufacturer": "Saab",
+    "type": "twin-engine",
+    "etops": 60,
+    "range": 1100,
+    "cruiseSpeed": 370,
+    "fuelConsumptionPerHour": 400,
+    "maxPassengers": 58,
+    "suitable_for_etops": false
+  },
+  "DHC-8-100": {
+    "name": "DHC-8-100 Dash 8",
+    "manufacturer": "De Havilland Canada",
+    "type": "twin-engine",
+    "etops": 60,
+    "range": 900,
+    "cruiseSpeed": 285,
+    "fuelConsumptionPerHour": 320,
+    "maxPassengers": 39,
+    "suitable_for_etops": false
+  },
+  "DHC-8-300": {
+    "name": "DHC-8-300 Dash 8",
+    "manufacturer": "De Havilland Canada",
+    "type": "twin-engine",
+    "etops": 60,
+    "range": 950,
+    "cruiseSpeed": 310,
+    "fuelConsumptionPerHour": 380,
+    "maxPassengers": 56,
+    "suitable_for_etops": false
+  },
+  "F50": {
+    "name": "Fokker 50",
+    "manufacturer": "Fokker",
+    "type": "twin-engine",
+    "etops": 60,
+    "range": 1125,
+    "cruiseSpeed": 285,
     "fuelConsumptionPerHour": 350,
-    "maxPassengers": 90,
-    "description": "高速ターボプロップ機"
+    "maxPassengers": 60,
+    "suitable_for_etops": false
   },
-  "B757-200": {
-    "name": "Boeing 757-200",
-    "manufacturer": "Boeing",
+  "F70": {
+    "name": "Fokker 70",
+    "manufacturer": "Fokker",
     "type": "twin-engine",
-    "etops": 180,
-    "range": 3915,
-    "cruiseSpeed": 459,
-    "fuelConsumptionPerHour": 1200,
-    "maxPassengers": 239,
-    "description": "中距離ナローボディ機"
+    "etops": 120,
+    "range": 1605,
+    "cruiseSpeed": 440,
+    "fuelConsumptionPerHour": 680,
+    "maxPassengers": 85,
+    "suitable_for_etops": true
   },
-  "B757-300": {
-    "name": "Boeing 757-300",
-    "manufacturer": "Boeing",
+  "F100": {
+    "name": "Fokker 100",
+    "manufacturer": "Fokker",
     "type": "twin-engine",
-    "etops": 180,
-    "range": 3467,
-    "cruiseSpeed": 459,
-    "fuelConsumptionPerHour": 1300,
-    "maxPassengers": 289,
-    "description": "757の延長型"
-  },
-  "B767-200": {
-    "name": "Boeing 767-200",
-    "manufacturer": "Boeing",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 6385,
-    "cruiseSpeed": 459,
-    "fuelConsumptionPerHour": 1300,
-    "maxPassengers": 224,
-    "description": "767の基本型"
-  },
-  "A310-300": {
-    "name": "Airbus A310-300",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 5150,
-    "cruiseSpeed": 459,
-    "fuelConsumptionPerHour": 1400,
-    "maxPassengers": 280,
-    "description": "A300の短胴型"
-  },
-  "A330-800neo": {
-    "name": "Airbus A330-800neo",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 8150,
-    "cruiseSpeed": 470,
-    "fuelConsumptionPerHour": 1600,
-    "maxPassengers": 406,
-    "description": "A330neoの小型機"
-  },
-  "A330-900neo": {
-    "name": "Airbus A330-900neo",
-    "manufacturer": "Airbus",
-    "type": "twin-engine",
-    "etops": 180,
-    "range": 7200,
-    "cruiseSpeed": 470,
-    "fuelConsumptionPerHour": 1700,
-    "maxPassengers": 460,
-    "description": "A330neoの標準型"
+    "etops": 120,
+    "range": 1350,
+    "cruiseSpeed": 440,
+    "fuelConsumptionPerHour": 750,
+    "maxPassengers": 122,
+    "suitable_for_etops": true
   }
 }
