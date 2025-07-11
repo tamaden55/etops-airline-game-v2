@@ -30,26 +30,31 @@
                     <div class="aircraft-selector">
                         <select id="aircraft-select" class="select-input">
                             <option value="">Select Aircraft</option>
-                            <optgroup label="Wide-body Long Range">
-                                <option value="B777-200ER">Boeing 777-200ER</option>
-                                <option value="B777-300ER">Boeing 777-300ER</option>
-                                <option value="A350-900">Airbus A350-900</option>
-                                <option value="A350-1000">Airbus A350-1000</option>
-                                <option value="B787-8">Boeing 787-8</option>
-                                <option value="B787-9">Boeing 787-9</option>
-                                <option value="B787-10">Boeing 787-10</option>
+                            <optgroup label="Ultra Long Range (330-370min ETOPS)">
+                                <option value="A350-900">A350-900 (370min ETOPS)</option>
+                                <option value="A350-1000">A350-1000 (370min ETOPS)</option>
+                                <option value="B787-8">B787-8 (330min ETOPS)</option>
+                                <option value="B787-9">B787-9 (330min ETOPS)</option>
+                                <option value="B787-10">B787-10 (330min ETOPS)</option>
                             </optgroup>
-                            <optgroup label="Medium Range">
-                                <option value="B737-800">Boeing 737-800</option>
-                                <option value="B737-MAX8">Boeing 737 MAX 8</option>
-                                <option value="A320-200">Airbus A320-200</option>
-                                <option value="A320neo">Airbus A320neo</option>
-                                <option value="A321XLR">Airbus A321XLR</option>
+                            <optgroup label="Long Range (180-207min ETOPS)">
+                                <option value="B777-200ER">B777-200ER (207min ETOPS)</option>
+                                <option value="B777-300ER">B777-300ER (207min ETOPS)</option>
+                                <option value="A330-200">A330-200 (180min ETOPS)</option>
+                                <option value="A330-300">A330-300 (180min ETOPS)</option>
+                                <option value="B767-300ER">B767-300ER (180min ETOPS)</option>
                             </optgroup>
-                            <optgroup label="Regional">
-                                <option value="E175">Embraer E175</option>
-                                <option value="E190">Embraer E190</option>
-                                <option value="A220-300">Airbus A220-300</option>
+                            <optgroup label="Medium Range (180min ETOPS)">
+                                <option value="B737-800">B737-800 (180min ETOPS)</option>
+                                <option value="B737-MAX8">B737-MAX8 (180min ETOPS)</option>
+                                <option value="A320-200">A320-200 (180min ETOPS)</option>
+                                <option value="A320neo">A320neo (180min ETOPS)</option>
+                                <option value="A321XLR">A321XLR (180min ETOPS)</option>
+                            </optgroup>
+                            <optgroup label="Regional (120min ETOPS)">
+                                <option value="E175">E175 (120min ETOPS)</option>
+                                <option value="E190">E190 (120min ETOPS)</option>
+                                <option value="A220-300">A220-300 (180min ETOPS)</option>
                             </optgroup>
                         </select>
                     </div>
@@ -57,6 +62,10 @@
                         <div class="info-item">
                             <span class="info-label">ETOPS Rating:</span>
                             <span class="info-value" id="etops-rating">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">ETOPS Distance:</span>
+                            <span class="info-value" id="etops-distance">-</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Range:</span>

@@ -51,8 +51,8 @@ class ETOPSApp {
             zoom: 4,
             minZoom: 2,
             maxZoom: 10,
-            worldCopyJump: true, // Re-enable world copy jump
-            maxBounds: [[-85, -180], [85, 180]] // Standard world bounds
+            worldCopyJump: false, // Disable world copy jump for better control
+            maxBounds: [[-85, -540], [85, 540]] // Extended bounds for Pacific view
         });
 
         // Add dark tile layer
@@ -124,13 +124,18 @@ class ETOPSApp {
     }
 
     updateAircraftInfo(aircraft) {
+        // Calculate ETOPS distance
+        const etopsDistanceNM = (aircraft.etops / 60) * aircraft.cruiseSpeed;
+        
         document.getElementById('etops-rating').textContent = `${aircraft.etops} minutes`;
+        document.getElementById('etops-distance').textContent = `${etopsDistanceNM.toFixed(0)} nm`;
         document.getElementById('aircraft-range').textContent = `${aircraft.range} nm`;
         document.getElementById('cruise-speed').textContent = `${aircraft.cruiseSpeed} kts`;
     }
 
     clearAircraftInfo() {
         document.getElementById('etops-rating').textContent = '-';
+        document.getElementById('etops-distance').textContent = '-';
         document.getElementById('aircraft-range').textContent = '-';
         document.getElementById('cruise-speed').textContent = '-';
     }
@@ -217,18 +222,51 @@ class ETOPSApp {
             console.log(`WP${i}: lat=${coord[0].toFixed(4)}, lng=${coord[1].toFixed(4)}`);
         });
         
-        const routeLine = L.polyline(routeCoords, {
-            color: '#2563eb',
-            weight: 3,
-            opacity: 0.8
-        }).addTo(this.routeLayer);
+        // Check if transpacific route
+        const depLng = route.departure.lng;
+        const arrLng = route.arrival.lng;
+        const crossesAntimeridian = Math.abs(arrLng - depLng) > 180;
+        
+        if (crossesAntimeridian) {
+            // For transpacific routes, normalize coordinates for continuous display
+            const normalizedCoords = this.normalizeTranspacificCoords(routeCoords);
+            console.log('Normalized coordinates for transpacific display');
+            
+            const routeLine = L.polyline(normalizedCoords, {
+                color: '#2563eb',
+                weight: 3,
+                opacity: 0.8
+            }).addTo(this.routeLayer);
+        } else {
+            // For normal routes, use original approach
+            const routeSegments = this.splitRouteAtAntimeridian(routeCoords);
+            console.log(`Route split into ${routeSegments.length} segments`);
+            
+            routeSegments.forEach((segment, index) => {
+                console.log(`Segment ${index}: ${segment.length} points`);
+                const routeLine = L.polyline(segment, {
+                    color: '#2563eb',
+                    weight: 3,
+                    opacity: 0.8
+                }).addTo(this.routeLayer);
+            });
+        }
 
-        // Add departure and arrival markers
-        const depMarker = L.marker([route.departure.lat, route.departure.lng], {
+        // Add departure and arrival markers with appropriate coordinates
+        let depCoords = [route.departure.lat, route.departure.lng];
+        let arrCoords = [route.arrival.lat, route.arrival.lng];
+        
+        if (crossesAntimeridian) {
+            // Use normalized coordinates for transpacific routes
+            if (route.departure.lng < 0) depCoords[1] = route.departure.lng + 360;
+            if (route.arrival.lng < 0) arrCoords[1] = route.arrival.lng + 360;
+        }
+        
+        const depMarker = L.marker(depCoords, {
             icon: this.createAirportIcon('departure')
         }).addTo(this.routeLayer);
 
-        const arrMarker = L.marker([route.arrival.lat, route.arrival.lng], {
+        const arrMarker = L.marker(arrCoords, {
             icon: this.createAirportIcon('arrival')
         }).addTo(this.routeLayer);
 
@@ -341,17 +379,113 @@ class ETOPSApp {
     }
 
     fitMapToRoute(route) {
-        const bounds = L.latLngBounds([
-            [route.departure.lat, route.departure.lng],
-            [route.arrival.lat, route.arrival.lng]
-        ]);
+        // Check if this is a transpacific route (crosses antimeridian)
+        const depLng = route.departure.lng;
+        const arrLng = route.arrival.lng;
+        const crossesAntimeridian = Math.abs(arrLng - depLng) > 180;
+        
+        if (crossesAntimeridian) {
+            // For transpacific routes, center the map on the Pacific
+            const avgLat = (route.departure.lat + route.arrival.lat) / 2;
+            
+            // Calculate Pacific-centered longitude
+            let centerLng;
+            if (depLng > 0 && arrLng < 0) {
+                // East to West crossing (e.g., Japan to US)
+                centerLng = (depLng + (arrLng + 360)) / 2;
+                if (centerLng > 180) centerLng -= 360;
+            } else {
+                // West to East crossing
+                centerLng = (arrLng + (depLng + 360)) / 2;
+                if (centerLng > 180) centerLng -= 360;
+            }
+            
+            console.log(`Transpacific route detected. Centering map at: ${avgLat.toFixed(2)}, ${centerLng.toFixed(2)}`);
+            
+            // Set view to Pacific center with appropriate zoom
+            this.map.setView([avgLat, centerLng], 3);
+            
+            // Set specific bounds for Pacific view to avoid world wrapping
+            const pacificBounds = L.latLngBounds([
+                [Math.min(route.departure.lat, route.arrival.lat) - 15, 100],
+                [Math.max(route.departure.lat, route.arrival.lat) + 15, 280]
+            ]);
+            
+            this.map.fitBounds(pacificBounds, { 
+                padding: [50, 50],
+                maxZoom: 4 
+            });
+        } else {
+            // For normal routes, use standard bounds fitting
+            const bounds = L.latLngBounds([
+                [route.departure.lat, route.departure.lng],
+                [route.arrival.lat, route.arrival.lng]
+            ]);
 
-        this.map.fitBounds(bounds, { padding: [50, 50] });
+            this.map.fitBounds(bounds, { padding: [50, 50] });
+        }
     }
 
     handleMapClick(e) {
         // Future: Allow clicking on map to select airports
         console.log('Map clicked:', e.latlng);
+    }
+
+    splitRouteAtAntimeridian(coords) {
+        const segments = [];
+        let currentSegment = [coords[0]];
+        
+        for (let i = 1; i < coords.length; i++) {
+            const prevLng = coords[i - 1][1];
+            const currentLng = coords[i][1];
+            const lngDiff = currentLng - prevLng;
+            
+            // Check for antimeridian crossing (longitude jump > 180 degrees)
+            if (Math.abs(lngDiff) > 180) {
+                // End current segment
+                segments.push([...currentSegment]);
+                
+                // Start new segment
+                currentSegment = [coords[i]];
+                console.log(`Antimeridian crossing detected between WP${i-1} and WP${i}`);
+                console.log(`  Longitude jump: ${prevLng} -> ${currentLng} (diff: ${lngDiff})`);
+            } else {
+                // Continue current segment
+                currentSegment.push(coords[i]);
+            }
+        }
+        
+        // Add the last segment
+        if (currentSegment.length > 0) {
+            segments.push(currentSegment);
+        }
+        
+        return segments;
+    }
+
+    normalizeTranspacificCoords(coords) {
+        // For transpacific routes, shift all negative longitudes to positive
+        // This creates a continuous path across the Pacific
+        const normalizedCoords = coords.map(coord => {
+            let [lat, lng] = coord;
+            
+            // Convert negative longitudes to 180+ range for Pacific continuity
+            if (lng < 0) {
+                lng = lng + 360;
+            }
+            
+            return [lat, lng];
+        });
+        
+        console.log('Coordinate normalization:');
+        coords.forEach((orig, i) => {
+            const norm = normalizedCoords[i];
+            if (orig[1] !== norm[1]) {
+                console.log(`  WP${i}: ${orig[1]} -> ${norm[1]}`);
+            }
+        });
+        
+        return normalizedCoords;
     }
 
     normalizeRouteCoords(waypoints) {
